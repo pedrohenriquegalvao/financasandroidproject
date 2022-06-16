@@ -7,4 +7,6 @@
     <string name="bem_vindo">Bem-vindo</string>
     <string name="seu_salario_atual">Seu salario atual é</string>
     <string name="atualizar_salario">Atualizar salario</string>
+    <string name="adicionar_despesa">Adicionar despesa</string>
+    <string name="text_view">Text View</string>
 </resources>
