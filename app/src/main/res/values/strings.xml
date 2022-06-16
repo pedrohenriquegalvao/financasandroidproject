@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">financas-android-project</string>
+    <string name="app_name">E-FINANCE</string>
+    <string name="titulologin">LOGIN</string>
+    <string name="login">Login</string>
+    <string name="cpf">CPF</string>
+    <string name="nome">Nome</string>
+    <string name="bem_vindo">Bem-vindo</string>
+    <string name="seu_salario_atual">Seu salario atual é</string>
+    <string name="atualizar_salario">Atualizar salario</string>
 </resources>
