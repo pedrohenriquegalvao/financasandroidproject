@@ -50,7 +50,7 @@ class DespesasAdapter(despesas: List<DespesaModel>, internal var context: Contex
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return despesas.size
     }
 
 }
