@@ -62,6 +62,7 @@
         app:layout_constraintVertical_bias="0.185" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDespesas"
         android:layout_width="409dp"
         android:layout_height="266dp"
         android:layout_marginTop="2dp"
