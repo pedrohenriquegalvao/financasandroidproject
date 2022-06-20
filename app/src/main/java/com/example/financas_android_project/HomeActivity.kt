@@ -45,8 +45,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun puxaLista () {
         despesas = bancoDeDados!!.getAllBills() //Retorna todas as despesas do banco para a tela
-        despesasAdapter = DespesasAdapter(despesas, applicationContext)
-        linearlayoutManager = LinearLayoutManager(applicationContext)
+        despesasAdapter = DespesasAdapter(despesas, this)
+        linearlayoutManager = LinearLayoutManager(this)
         recycler_despesa.layoutManager = linearlayoutManager
         recycler_despesa.adapter = despesasAdapter
         despesasAdapter?.notifyDataSetChanged()

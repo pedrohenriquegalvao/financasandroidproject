@@ -170,15 +170,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     fun getDespesas(_id: Int) : DespesaModel {
         val despesas = DespesaModel()
         val db = writableDatabase
-        val selectQuery = "SELECT * FROM $TABLE_DESPESA_NAME WHERE $FK_USUARIO = $_id"
+        val selectQuery = "SELECT * FROM $TABLE_DESPESA_NAME WHERE $ID_DESPESA = $_id"
         val cursor = db.rawQuery(selectQuery, null)
 
         cursor?.moveToFirst()
-        despesas.id_despesa = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_DESPESA)))
-        despesas.nome_despesa = cursor.getString(cursor.getColumnIndexOrThrow(NOME_DESPESA))
-        despesas.fk_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO)))
-        despesas.data_venc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_VENC))
-        despesas.valor = cursor.getFloat(cursor.getColumnIndexOrThrow(VALOR))
+        if (cursor.count > 0) {
+            despesas.id_despesa = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_DESPESA)))
+            despesas.nome_despesa = cursor.getString(cursor.getColumnIndexOrThrow(NOME_DESPESA))
+            despesas.fk_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO)))
+            despesas.data_venc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_VENC))
+            despesas.valor = cursor.getFloat(cursor.getColumnIndexOrThrow(VALOR))
+        }
         cursor.close()
         return despesas
     }
