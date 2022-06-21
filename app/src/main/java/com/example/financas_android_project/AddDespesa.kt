@@ -15,6 +15,7 @@ class AddDespesa : AppCompatActivity() {
     lateinit var btn_salvar : Button
     lateinit var editTextNomeDespesa: EditText
     lateinit var editTextValorDespesa: EditText
+    lateinit var editTextDataVencDespesa: EditText
     var bancoDeDados : DatabaseHelper ?= null
     var modoEditar : Boolean = false
 
@@ -22,9 +23,15 @@ class AddDespesa : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_despesa)
 
+        val cpf = intent.getStringExtra("CPF")
+        val nome = intent.getStringExtra("Nome")
+
+
+        println("CPF ENTRANDO NO EDITAR $cpf")
         btn_salvar = findViewById(R.id.btn_salvar)
         editTextNomeDespesa = findViewById(R.id.editTextNomeDespesa)
         editTextValorDespesa = findViewById(R.id.editTextValorDespesa)
+        editTextDataVencDespesa = findViewById(R.id.editTextDataVencDespesa)
 
         bancoDeDados = DatabaseHelper(this)
 
@@ -36,7 +43,7 @@ class AddDespesa : AppCompatActivity() {
             val despesas : DespesaModel = bancoDeDados!!.getDespesas(intent.getIntExtra("Id", 0))
             editTextNomeDespesa.setText(despesas.nome_despesa)
             editTextValorDespesa.setText(despesas.valor.toString())
-
+            editTextDataVencDespesa.setText(despesas.data_venc)
 
         } else {
             //Adicionar uma despesa
@@ -52,19 +59,24 @@ class AddDespesa : AppCompatActivity() {
             //Editar
                 despesas.id_despesa = intent.getIntExtra("Id", 0)
                 despesas.nome_despesa = editTextNomeDespesa.text.toString()
+                despesas.fk_usuario = cpf!!
                 despesas.valor = editTextValorDespesa.text.toString().toFloat()
-
+                despesas.data_venc = editTextDataVencDespesa.text.toString()
                 success = bancoDeDados?.updateDespesa(despesas) as Boolean
             } else {
             //Adicionar
                 despesas.nome_despesa = editTextNomeDespesa.text.toString()
+                despesas.fk_usuario = intent.getStringExtra("CPF").toString()
                 despesas.valor = editTextValorDespesa.text.toString().toFloat()
-
+                despesas.data_venc = editTextDataVencDespesa.text.toString()
                 success = bancoDeDados?.addDespesa(despesas) as Boolean
             }
 
             if (success) {
                 val i = Intent(applicationContext, HomeActivity::class.java)
+                i.putExtra("Nome", nome)
+                i.putExtra("CPF", cpf)
+                println("CPF VOLTANDO DO EDITAR: $cpf")
                 startActivity(i)
                 finish()
             } else {

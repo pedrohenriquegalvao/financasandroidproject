@@ -13,4 +13,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="data_de_nascimento">Data de Nascimento</string>
     <string name="salario">Salario</string>
+    <string name="sair">Sair</string>
+    <string name="valor_da_despesa">Valor da despesa</string>
+    <string name="data_de_vencimento">Data de Vencimento</string>
 </resources>

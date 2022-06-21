@@ -24,27 +24,42 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val message = intent.getStringExtra(EXTRA_MESSAGE)
+
+        val cpf = intent.getStringExtra("CPF")
+        println("CPF CHEGANDO NA HOME: $cpf")
+        val nome = intent.getStringExtra("Nome")
 
         val textView = findViewById<TextView>(R.id.tituloHome).apply {
-            text = "Bem vindo $message"
-
+            text = "Bem vindo $nome"
         }
-        recycler_despesa = findViewById(R.id.recyclerViewDespesas)
+
+        var btn_sair = findViewById<Button>(R.id.buttonSair)
+        btn_sair.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         btn_add = findViewById(R.id.buttonAddDespesa)
+        recycler_despesa = findViewById(R.id.recyclerViewDespesas)
 
         bancoDeDados = DatabaseHelper(this)
 
-        puxaLista() //Chama a funcao para mostrar as despesas na tela
+        puxaLista(cpf) //Chama a funcao para mostrar as despesas na tela
 
         btn_add.setOnClickListener { // Click listener do botao adicionar Despesa
             val i = Intent(applicationContext, AddDespesa::class.java)
+            i.putExtra("Nome", nome)
+            i.putExtra("CPF", cpf)
             startActivity(i)
         }
+
+
     }
 
-    private fun puxaLista () {
-        despesas = bancoDeDados!!.getAllBills() //Retorna todas as despesas do banco para a tela
+    private fun puxaLista (cpf: String?) {
+        despesas = bancoDeDados!!.getAllBills(cpf!!) //Retorna todas as despesas do banco para a tela
+        for (d in despesas) {
+            println("${d.id_despesa}  ${d.nome_despesa}  ${d.fk_usuario}  ${d.valor} ${d.data_venc}")
+        }
         despesasAdapter = DespesasAdapter(despesas, this)
         linearlayoutManager = LinearLayoutManager(this)
         recycler_despesa.layoutManager = linearlayoutManager

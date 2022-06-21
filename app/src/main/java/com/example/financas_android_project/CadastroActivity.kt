@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.financas_android_project.database.DatabaseHelper
@@ -20,42 +21,50 @@ class CadastroActivity : AppCompatActivity() {
         val editTextCPFCadastro = findViewById<EditText>(R.id.editTextCPFCadastro)
         val editTextSalarioCadastro = findViewById<EditText>(R.id.editTextSalarioCadastro)
         val buttonCadastrar = findViewById<Button>(R.id.buttonCadastrar)
+        val textViewGoToLogin = findViewById<TextView>(R.id.textViewGoToLogin)
 
         val bancoDeDados = DatabaseHelper(this)
 
-
         buttonCadastrar.setOnClickListener {
-            /*var success: Boolean
-            var despesas = DespesaModel()
-            despesas.nome_despesa = editTextNomeDespesa.text.toString()
-            despesas.valor = editTextValorDespesa.text.toString().toFloat()
-            success = bancoDeDados?.addDespesa(despesas) as Boolean
-            if (success) {
-                val i = Intent(applicationContext, HomeActivity::class.java)
-                startActivity(i)
-                finish()
-            } else {
-                Toast.makeText(applicationContext, "Alguma coisa deu errado!", Toast.LENGTH_LONG)
-                    .show()
-            }*/
+            val nome = editTextNomeCadastro.text.toString()
+            val data_nasc = editTextNascCadastro.text.toString()
+            var cpf = editTextCPFCadastro.text.toString()
+            val salario = editTextSalarioCadastro.text.toString()
             var success: Boolean
-            var usuario = UsuarioModel()
-            usuario.nome = editTextNomeCadastro.text.toString()
-            usuario.data_nasc = editTextNascCadastro.text.toString()
-            usuario.cpf = editTextCPFCadastro.text.toString()
-            usuario.salario = editTextSalarioCadastro.text.toString().toFloat()
+            val usuario = UsuarioModel()
 
-            success = bancoDeDados.addUser(usuario) as Boolean
-            if (success) {
-                val i = Intent(applicationContext, HomeActivity::class.java)
+            if (nome != "" && data_nasc != "" && cpf != "" && salario != "") {
+                usuario.nome = nome
+                usuario.data_nasc = data_nasc
+                // "Máscara CPF"
+                if (cpf.contains(".") or cpf.contains("-"))
+                    cpf = cpf.replace(".", "")
+                cpf = cpf.replace("-", "")
+                usuario.cpf = cpf
+                //
+                usuario.salario = salario.toFloat()
+                success = bancoDeDados.addUser(usuario) as Boolean
+                if (success) {
+                    val i = Intent(applicationContext, MainActivity::class.java)
+                    bancoDeDados.getAllUsers()
+                    startActivity(i)
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "Alguma coisa deu errado!", Toast.LENGTH_SHORT)
+                        .show()
+                }
 
-                bancoDeDados.getAllUsers()
-                startActivity(i)
-                finish()
             } else {
-                Toast.makeText(applicationContext, "Alguma coisa deu errado!", Toast.LENGTH_LONG)
+                Toast.makeText(applicationContext, "Preencha todos os campos para continuar.", Toast.LENGTH_LONG)
                     .show()
+
             }
+
+        }
+
+        textViewGoToLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

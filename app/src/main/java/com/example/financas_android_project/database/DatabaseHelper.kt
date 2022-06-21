@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.financas_android_project.model.DespesaModel
 import com.example.financas_android_project.model.UsuarioModel
+import kotlin.reflect.typeOf
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
@@ -15,7 +16,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
 
         //TABELA USUARIO
         private val TABLE_NAME = "usuario"
-        private val ID_USUARIO = "id"
         private val NOME_USUARIO = "nomeusuario"
         private val DATA_NASC = "datanasc"
         private val CPF = "cpf"
@@ -31,12 +31,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {
-        val CREATE_TABLE = "CREATE TABLE $TABLE_NAME ($ID_USUARIO INTEGER PRIMARY KEY, $NOME_USUARIO TEXT, " +
-                "$DATA_NASC TEXT, $CPF TEXT, $SALARIO NUMERIC);"
+        val CREATE_TABLE = "CREATE TABLE $TABLE_NAME ($CPF TEXT PRIMARY KEY, $NOME_USUARIO TEXT, " +
+                "$DATA_NASC TEXT, $SALARIO NUMERIC);"
 
         val CREATE_TABLE_DESPESA = "CREATE TABLE $TABLE_DESPESA_NAME ($ID_DESPESA INTEGER PRIMARY KEY," +
-                " $FK_USUARIO INTEGER, $NOME_DESPESA TEXT, $DATA_VENC TEXT, $VALOR NUMERIC," +
-                " FOREIGN KEY ("+FK_USUARIO+") REFERENCES $TABLE_NAME("+ID_USUARIO+"));"
+                " $FK_USUARIO TEXT, $NOME_DESPESA TEXT, $DATA_VENC TEXT, $VALOR NUMERIC," +
+                " FOREIGN KEY ("+FK_USUARIO+") REFERENCES $TABLE_NAME("+CPF+"));"
 
         p0?.execSQL(CREATE_TABLE)
         p0?.execSQL(CREATE_TABLE_DESPESA)
@@ -62,10 +62,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
             if (cursor.moveToFirst()){
                 do {
                     val usuarios = UsuarioModel()
-                    usuarios.id_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_USUARIO)))
+                    usuarios.cpf = cursor.getString(cursor.getColumnIndexOrThrow(CPF))
                     usuarios.nome = cursor.getString(cursor.getColumnIndexOrThrow(NOME_USUARIO))
                     usuarios.data_nasc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_NASC))
-                    usuarios.cpf = cursor.getString(cursor.getColumnIndexOrThrow(CPF))
                     usuarios.salario = cursor.getFloat(cursor.getColumnIndexOrThrow(SALARIO))
                     listaUsuarios.add(usuarios)
                 } while (cursor.moveToNext())
@@ -79,9 +78,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     fun addUser(usuarios : UsuarioModel): Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
+        values.put(CPF, usuarios.cpf)
         values.put(NOME_USUARIO, usuarios.nome)
         values.put(DATA_NASC, usuarios.data_nasc)
-        values.put(CPF, usuarios.cpf)
         values.put(SALARIO, usuarios.salario)
         val _success = db.insert(TABLE_NAME, null, values)
         db.close()
@@ -89,26 +88,29 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     }
 
     // SELECT DE UM USUARIO ESPECIFICO PELO ID
-    fun getUser(_id: Int) : UsuarioModel {
+    fun getUser(_CPF: String) : UsuarioModel {
         val usuarios = UsuarioModel()
         val db = writableDatabase
-        val selectQuery = "SELECT * FROM $TABLE_DESPESA_NAME WHERE $ID_DESPESA = $_id"
-        val cursor = db.rawQuery(selectQuery, null)
-
-        cursor?.moveToFirst()
-        usuarios.id_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_USUARIO)))
-        usuarios.nome = cursor.getString(cursor.getColumnIndexOrThrow(NOME_USUARIO))
-        usuarios.data_nasc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_NASC))
-        usuarios.cpf = cursor.getString(cursor.getColumnIndexOrThrow(CPF))
-        usuarios.salario = cursor.getFloat(cursor.getColumnIndexOrThrow(SALARIO))
-        cursor.close()
+        val selectQuery = "SELECT * FROM $TABLE_NAME WHERE CPF = $_CPF"
+        println(selectQuery)
+        val cursor = db.rawQuery(selectQuery, null, )
+        if (cursor.count > 0) {
+            cursor?.moveToFirst()
+            usuarios.cpf = cursor.getString(cursor.getColumnIndexOrThrow(CPF))
+            usuarios.nome = cursor.getString(cursor.getColumnIndexOrThrow(NOME_USUARIO))
+            usuarios.data_nasc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_NASC))
+            usuarios.salario = cursor.getFloat(cursor.getColumnIndexOrThrow(SALARIO))
+            cursor.close()
+        } else {
+            println("Nada no banco com esse CPF.")
+        }
         return usuarios
     }
 
     // DELETE DE UM USUARIO ESPECIFICO PELO ID
-    fun deleteUser(_id: Int): Boolean {
+    fun deleteUser(CPF: String): Boolean {
         val db = this.writableDatabase
-        val _success = db.delete(TABLE_NAME, ID_USUARIO+"=?", arrayOf(_id.toString())).toLong()
+        val _success = db.delete(TABLE_NAME, CPF+"=?", arrayOf(CPF.toString())).toLong()
         db.close()
         return Integer.parseInt("$_success") != -1
     }
@@ -117,11 +119,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     fun updateUser(usuarios: UsuarioModel) : Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
+        values.put(CPF, usuarios.cpf)
         values.put(NOME_USUARIO, usuarios.nome)
         values.put(DATA_NASC, usuarios.data_nasc)
-        values.put(CPF, usuarios.cpf)
         values.put(SALARIO, usuarios.salario)
-        val _success = db.update(TABLE_NAME, values, ID_USUARIO+"=?", arrayOf(usuarios.id_usuario.toString())).toLong()
+        val _success = db.update(TABLE_NAME, values, CPF+"=?", arrayOf(usuarios.cpf.toString())).toLong()
         db.close()
         return Integer.parseInt("$_success") != -1
     }
@@ -131,10 +133,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     // -------- OPERACOES SOBRE DESPESAS ----------
 
     // SELECT DE TODAS AS DESPESAS
-    fun getAllBills(): List<DespesaModel> {
+    fun getAllBills(_CPF: String): List<DespesaModel> {
         val listaDespesas = ArrayList<DespesaModel>()
         val db = writableDatabase
-        val selectQuery = "SELECT * FROM $TABLE_DESPESA_NAME"
+        val selectQuery = "SELECT * FROM $TABLE_DESPESA_NAME WHERE FK_USUARIO = $_CPF"
         val cursor = db.rawQuery(selectQuery, null)
         if (cursor != null) {
             if (cursor.moveToFirst()){
@@ -142,7 +144,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
                     val despesas = DespesaModel()
                     despesas.id_despesa = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_DESPESA)))
                     despesas.nome_despesa = cursor.getString(cursor.getColumnIndexOrThrow(NOME_DESPESA))
-                    despesas.fk_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO)))
+                    despesas.fk_usuario = cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO))
                     despesas.data_venc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_VENC))
                     despesas.valor = cursor.getFloat(cursor.getColumnIndexOrThrow(VALOR))
                     listaDespesas.add(despesas)
@@ -177,7 +179,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
         if (cursor.count > 0) {
             despesas.id_despesa = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ID_DESPESA)))
             despesas.nome_despesa = cursor.getString(cursor.getColumnIndexOrThrow(NOME_DESPESA))
-            despesas.fk_usuario = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO)))
+            despesas.fk_usuario = cursor.getString(cursor.getColumnIndexOrThrow(FK_USUARIO))
             despesas.data_venc = cursor.getString(cursor.getColumnIndexOrThrow(DATA_VENC))
             despesas.valor = cursor.getFloat(cursor.getColumnIndexOrThrow(VALOR))
         }

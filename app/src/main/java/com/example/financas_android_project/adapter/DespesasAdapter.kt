@@ -45,10 +45,18 @@ class DespesasAdapter(despesas: List<DespesaModel>, internal var context: Contex
         holder.data_venc.text = despesa.data_venc
         holder.valor.text = despesa.valor.toString()
 
+        var bancoDeDados: DatabaseHelper? = null
+        bancoDeDados = DatabaseHelper(context)
+
+        val nome = bancoDeDados.getUser(despesa.fk_usuario).nome
+        //Pega o nome do usuario de CPF = ao CPF registrado com FK_usuario da despesa
+
         holder.btn_edit.setOnClickListener {
             val i = Intent(context, AddDespesa::class.java)
             i.putExtra("Modo", "Editar")
             i.putExtra("Id", despesa.id_despesa)
+            i.putExtra("CPF", despesa.fk_usuario)
+            i.putExtra("Nome", nome)
             println("/DespesasAdapter/ id_despesa: " + despesa.id_despesa)
             println("nome_despesa: " + despesa.nome_despesa)
             println("valor: " + despesa.valor)
@@ -56,15 +64,13 @@ class DespesasAdapter(despesas: List<DespesaModel>, internal var context: Contex
         }
 
         holder.btn_delete.setOnClickListener {
-            var bancoDeDados: DatabaseHelper? = null
-            bancoDeDados = DatabaseHelper(context)
-
             val dialog = AlertDialog.Builder(context).setTitle("Info").setMessage("Tem certeza que deseja deletar?")
                 .setPositiveButton("SIM") { dialog, i ->
                     val success = bancoDeDados.deleteDespesa(despesa.id_despesa) as Boolean
                     if (success) {
                         val i2 = Intent(context, HomeActivity::class.java)
-                        i2.putExtra("IdUsuario", despesa.fk_usuario)
+                        i2.putExtra("CPF", despesa.fk_usuario)
+                        i2.putExtra("Nome", nome)
                         context.startActivity(i2)
                         dialog.dismiss()
                     }
