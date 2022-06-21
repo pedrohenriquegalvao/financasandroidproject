@@ -9,4 +9,8 @@
     <string name="atualizar_salario">Atualizar salario</string>
     <string name="adicionar_despesa">Adicionar despesa</string>
     <string name="text_view">Text View</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="data_de_nascimento">Data de Nascimento</string>
+    <string name="salario">Salario</string>
 </resources>

@@ -6,8 +6,8 @@
         <entry key="app/src/main/res/layout/activity_add_depesa.xml" value="0.20364583333333333" />
         <entry key="app/src/main/res/layout/activity_add_despesa.xml" value="0.2126922607421875" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25903133816189233" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23227996826171876" />
-        <entry key="app/src/main/res/layout/cadastro_activity.xml" value="0.34229482014973955" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.28157653808593774" />
+        <entry key="app/src/main/res/layout/cadastro_activity.xml" value="0.32069295247395835" />
         <entry key="app/src/main/res/layout/card.xml" value="0.2754491017964072" />
         <entry key="app/src/main/res/layout/item_despesa.xml" value="0.28058624267578114" />
       </map>
@@ -18,12 +18,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.34229482014973955" />
-      </ProjectState>
-    </option>
   </component>
 </project>

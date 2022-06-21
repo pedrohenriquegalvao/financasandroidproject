@@ -46,8 +46,8 @@ class AddDespesa : AppCompatActivity() {
         }
 
         btn_salvar.setOnClickListener {
-            var success : Boolean = false
-            var despesas : DespesaModel = DespesaModel()
+            var success: Boolean
+            var despesas = DespesaModel()
             if (modoEditar) {
             //Editar
                 despesas.id_despesa = intent.getIntExtra("Id", 0)
