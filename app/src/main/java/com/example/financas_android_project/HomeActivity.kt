@@ -25,6 +25,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        var btn_sair = findViewById<Button>(R.id.buttonSair)
+        btn_sair.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         val cpf = intent.getStringExtra("CPF")
         println("CPF CHEGANDO NA HOME: $cpf")
         val nome = intent.getStringExtra("Nome")
@@ -33,15 +39,16 @@ class HomeActivity : AppCompatActivity() {
             text = "Bem vindo $nome"
         }
 
-        var btn_sair = findViewById<Button>(R.id.buttonSair)
-        btn_sair.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
         btn_add = findViewById(R.id.buttonAddDespesa)
         recycler_despesa = findViewById(R.id.recyclerViewDespesas)
 
         bancoDeDados = DatabaseHelper(this)
+
+        var salario = bancoDeDados!!.getUser(cpf!!).salario.toString()
+        salario = salario.replace(".", ",0")
+
+        val textViewSalario = findViewById<TextView>(R.id.textViewSalario)
+        textViewSalario.setText("Seu salario atual é: R$$salario")
 
         puxaLista(cpf) //Chama a funcao para mostrar as despesas na tela
 
