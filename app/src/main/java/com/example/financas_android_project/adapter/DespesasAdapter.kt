@@ -42,8 +42,8 @@ class DespesasAdapter(despesas: List<DespesaModel>, internal var context: Contex
     override fun onBindViewHolder(holder: DespesaViewHolder, position: Int) {
         val despesa = despesas[position]
         holder.nome_despesa.text = despesa.nome_despesa
-        holder.data_venc.text = despesa.data_venc
-        holder.valor.text = despesa.valor.toString()
+        holder.data_venc.text = "Data de vencimento: ${despesa.data_venc}"
+        holder.valor.text = "Valor: R$${despesa.valor.toString().replace(".0", ",00")}"
 
         var bancoDeDados: DatabaseHelper? = null
         bancoDeDados = DatabaseHelper(context)

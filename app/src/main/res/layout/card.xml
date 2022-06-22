@@ -2,13 +2,17 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/grey"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="10dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
 
@@ -17,42 +21,83 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/text_view" />
+            android:text="@string/text_view"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
             android:id="@+id/textViewValorDespesa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_view" />
+            android:text="@string/text_view"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
             android:id="@+id/textViewDataVenc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="@string/text_view" />
+            android:text="@string/text_view"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <Button
-            android:id="@+id/buttonEditDespesa"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:backgroundTint="@android:color/holo_orange_light"
-            app:icon="@android:drawable/ic_menu_edit"
-            app:iconSize="20dp"
-            app:iconTint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonDeleteDespesa"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:backgroundTint="@color/design_default_color_error"
-            app:icon="@android:drawable/ic_menu_delete"
-            app:iconSize="20dp"
-            app:iconTint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <!--<Button
+                android:id="@+id/buttonEditDespesa"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_orange_light"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:iconSize="20dp"
+                app:iconTint="@color/black"
+                tools:ignore="SpeakableTextPresentCheck" />-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEditDespesa"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/editar"
+                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:backgroundTint="@android:color/holo_orange_light"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="5dp"
+                app:iconSize="20dp"
+                app:iconTint="@color/black"
+                android:layout_marginEnd="5dp"/>
+
+            <!--<Button
+                android:id="@+id/buttonDeleteDespesa"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/design_default_color_error"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconSize="20dp"
+                app:iconTint="@color/white"
+                tools:ignore="SpeakableTextPresentCheck" />-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDeleteDespesa"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/deletar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:backgroundTint="@color/design_default_color_error"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="5dp"
+                app:iconSize="20dp"
+                app:iconTint="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

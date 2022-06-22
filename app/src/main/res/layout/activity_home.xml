@@ -10,42 +10,12 @@
         android:id="@+id/tituloHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/bem_vindo"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/textViewSalario"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewSalario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="444dp"
-        android:text="@string/seu_salario_atual"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonAtualizarSalario"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="140dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="#755959"
-        android:backgroundTint="#E10E0E"
-        android:backgroundTintMode="add"
-        android:text="@string/atualizar_salario"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:iconPadding="0dp"
-        app:iconTint="#9E1818"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSalario" />
 
     <Button
         android:id="@+id/buttonAddDespesa"
@@ -57,17 +27,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAtualizarSalario"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.156" />
+
+    <Button
+        android:id="@+id/buttonAtualizarSalario"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="#755959"
+        android:backgroundTint="#E10E0E"
+        android:backgroundTintMode="add"
+        android:text="@string/atualizar_salario"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:iconPadding="0dp"
+        app:iconTint="#9E1818"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSalario" />
+
+    <TextView
+        android:id="@+id/textViewSalario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="508dp"
+        android:text="@string/seu_salario_atual"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDespesas"
-        android:layout_width="409dp"
-        android:layout_height="266dp"
+        android:layout_width="270dp"
+        android:layout_height="325dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddDespesa" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddDespesa"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonSair"
@@ -76,8 +78,8 @@
         android:text="@string/sair"
         app:layout_constraintBottom_toTopOf="@+id/tituloHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

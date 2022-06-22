@@ -15,6 +15,7 @@ import com.example.financas_android_project.model.DespesaModel
 class HomeActivity : AppCompatActivity() {
 
     lateinit var recycler_despesa : RecyclerView
+    lateinit var btn_atualizar_salario : Button
     lateinit var btn_add : Button
     var despesasAdapter : DespesasAdapter ?= null
     var bancoDeDados : DatabaseHelper ?= null
@@ -42,13 +43,24 @@ class HomeActivity : AppCompatActivity() {
         btn_add = findViewById(R.id.buttonAddDespesa)
         recycler_despesa = findViewById(R.id.recyclerViewDespesas)
 
+        //Pegar salario do usuario no banco
         bancoDeDados = DatabaseHelper(this)
 
         var salario = bancoDeDados!!.getUser(cpf!!).salario.toString()
-        salario = salario.replace(".", ",0")
+        var salarioFormatado = salario.replace(".", ",0")
 
         val textViewSalario = findViewById<TextView>(R.id.textViewSalario)
-        textViewSalario.setText("Seu salario atual é: R$$salario")
+        textViewSalario.setText("Seu salario atual é: R$$salarioFormatado")
+        //
+
+        btn_atualizar_salario = findViewById(R.id.buttonAtualizarSalario)
+        btn_atualizar_salario.setOnClickListener {
+            val intentAttSalario = Intent(this, AttSalario::class.java)
+            intentAttSalario.putExtra("CPF", cpf)
+            intentAttSalario.putExtra("Nome", nome)
+            intentAttSalario.putExtra("Salario", salario)
+            startActivity(intentAttSalario)
+        }
 
         puxaLista(cpf) //Chama a funcao para mostrar as despesas na tela
 

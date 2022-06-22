@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.financas_android_project.database.DatabaseHelper
@@ -12,6 +13,7 @@ import com.example.financas_android_project.model.DespesaModel
 
 class AddDespesa : AppCompatActivity() {
 
+    lateinit var textViewTituloTelaAdd : TextView
     lateinit var btn_salvar : Button
     lateinit var editTextNomeDespesa: EditText
     lateinit var editTextValorDespesa: EditText
@@ -27,7 +29,9 @@ class AddDespesa : AppCompatActivity() {
         val nome = intent.getStringExtra("Nome")
 
 
-        println("CPF ENTRANDO NO EDITAR $cpf")
+        println("CPF ENTRANDO NO ADICIONAR/EDITAR $cpf")
+
+        textViewTituloTelaAdd = findViewById(R.id.textViewTituloTelaAdd)
         btn_salvar = findViewById(R.id.btn_salvar)
         editTextNomeDespesa = findViewById(R.id.editTextNomeDespesa)
         editTextValorDespesa = findViewById(R.id.editTextValorDespesa)
@@ -39,6 +43,7 @@ class AddDespesa : AppCompatActivity() {
         if (intent != null && intent.getStringExtra("Modo") == "Editar") {
             //Fazer update da despesa
             modoEditar = true
+            textViewTituloTelaAdd.setText("Editar despesa")
             btn_salvar.text = "Atualizar"
             val despesas : DespesaModel = bancoDeDados!!.getDespesas(intent.getIntExtra("Id", 0))
             editTextNomeDespesa.setText(despesas.nome_despesa)
@@ -48,6 +53,7 @@ class AddDespesa : AppCompatActivity() {
         } else {
             //Adicionar uma despesa
             modoEditar = false
+            textViewTituloTelaAdd.setText("Adicionar despesa")
             btn_salvar.text = "Adicionar"
 
         }
