@@ -45,16 +45,6 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <!--<Button
-                android:id="@+id/buttonEditDespesa"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/holo_orange_light"
-                app:icon="@android:drawable/ic_menu_edit"
-                app:iconSize="20dp"
-                app:iconTint="@color/black"
-                tools:ignore="SpeakableTextPresentCheck" />-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonEditDespesa"
                 android:layout_width="50dp"
@@ -62,26 +52,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/editar"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                app:backgroundTint="@android:color/holo_orange_light"
+                app:backgroundTint="@color/green_700"
                 app:icon="@android:drawable/ic_menu_delete"
                 app:iconGravity="textStart"
                 app:iconPadding="5dp"
                 app:iconSize="20dp"
-                app:iconTint="@color/black"
+                app:iconTint="@color/white"
                 android:layout_marginEnd="5dp"/>
 
-            <!--<Button
-                android:id="@+id/buttonDeleteDespesa"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/design_default_color_error"
-                app:icon="@android:drawable/ic_menu_delete"
-                app:iconSize="20dp"
-                app:iconTint="@color/white"
-                tools:ignore="SpeakableTextPresentCheck" />-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonDeleteDespesa"
                 android:layout_width="50dp"

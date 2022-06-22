@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity() {
             var nome = editTextNomeLogin.text.toString()
             //Mascara CPF
             var cpf = editTextCPFLogin.text.toString()
-            println("CPFFFFF: $cpf")
             if (cpf.contains(".") or cpf.contains("-"))
-                println("TEMMMMMMMMM")
                 cpf = cpf.replace(".", "")
                 cpf = cpf.replace("-", "")
             //
@@ -54,8 +52,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(applicationContext, "Preencha todos os campos para continuar.", Toast.LENGTH_SHORT).show()
             }
-
-
 
         }
 

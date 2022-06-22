@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1135" />
         <entry key="app/src/main/res/layout/activity_add_depesa.xml" value="0.20364583333333333" />
         <entry key="app/src/main/res/layout/activity_add_despesa.xml" value="0.18007965087890626" />
         <entry key="app/src/main/res/layout/activity_att_salario.xml" value="0.24278717041015624" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25903133816189233" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28157653808593774" />
         <entry key="app/src/main/res/layout/cadastro_activity.xml" value="0.23572082519531262" />
-        <entry key="app/src/main/res/layout/card.xml" value="0.23059718919836958" />
+        <entry key="app/src/main/res/layout/card.xml" value="0.3743340033989448" />
         <entry key="app/src/main/res/layout/item_despesa.xml" value="0.28058624267578114" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1135" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1135" />
       </map>
     </option>
   </component>
